@@ -4,6 +4,7 @@ canvas.width = 1014;
 canvas.height = 566;
 const c = canvas.getContext("2d");
 
+
 // Audio needs user interaction first due to browser autoplay policies
 window.audioPlaying = false;
 const backgroundMusic = new Audio('/Audio/map.wav');
@@ -61,7 +62,7 @@ class Boundary {
   }
 
   draw() {
-    c.fillStyle = "rgb(255,0,0,0.4)";
+    c.fillStyle = "rgb(255,0,0,0.2)";
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
@@ -71,6 +72,7 @@ const offset = {
   y: -1500,
 };
 const boundary = [];
+
 collision_map.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 1702) {
@@ -85,13 +87,13 @@ collision_map.forEach((row, i) => {
     }
   });
 });
-console.log(boundary);
 
-const battle_map = [];
+const battleZone = []
+
 battlefield_map.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 1702) {
-      battle_map.push(
+      battleZone.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -102,6 +104,11 @@ battlefield_map.forEach((row, i) => {
     }
   });
 });
+
+console.log(battleZone)
+
+
+
 
 
 
@@ -123,7 +130,7 @@ class Sprite {
     this.image.onload = () => {
       this.width = this.image.width / this.frames.max;
       this.height = this.image.height;
-      console.log(this.width, this.height);
+      
     };
     this.moving = false;
   }
@@ -183,7 +190,7 @@ image.onload = () => {
   c.drawImage(image, -300, -1500);
 };
 
-let movableEntities = [background, ...boundary];
+let movableEntities = [background, ...boundary , ...battleZone];
 
 function collision101({ rect1, rect2 }) {
   return (
@@ -206,6 +213,9 @@ function animate() {
     bound.draw();
   });
   
+  battleZone.forEach((battlePoints)=>{
+    battlePoints.draw();
+  })
   // Update sprite animation frame
 
   if (playerSprite.moving) {
@@ -218,7 +228,25 @@ function animate() {
   
   playerSprite.draw();
   let move = true;
+  // responsibale for Battle collison
+ if(keys.w.pressed || keys.s.pressed || keys.a.pressed || keys.d.pressed)
+ {
   
+  for (let i = 0; i < battleZone.length; i++) {
+    const battlePoints = battleZone[i];
+    if (
+      collision101({
+        rect1: playerSprite,
+        rect2:battlePoints
+      })
+    ) {
+    console.log("battle zone collision")
+      break;
+    }
+  }
+ }
+
+
 
   if (keys.w.pressed && lastkey === "w") {
    
@@ -238,7 +266,7 @@ function animate() {
           },
         })
       ) {
-        console.log("collision");
+      
         if (!tackleHitPlaying) {
           tackleHitPlaying = true;
           const audio = new Audio("/Audio/tackleHit.wav");
@@ -252,12 +280,15 @@ function animate() {
         break;
       }
     }
+   
     if (move) { 
       movableEntities.forEach((move) => {
-        move.position.y += 2;
+        move.position.y += 1;
       });
     }
   }
+
+  
   if (keys.s.pressed && lastkey === "s") {
     playerSprite.moving = true;
     playerSprite.image = player_front;
@@ -275,7 +306,7 @@ function animate() {
           },
         })
       ) {
-        console.log("collision");
+      
         if (!tackleHitPlaying) {
           tackleHitPlaying = true;
           const audio = new Audio("/Audio/tackleHit.wav");
@@ -290,7 +321,7 @@ function animate() {
     }
     if (move) { 
       movableEntities.forEach((move) => {
-        move.position.y -= 2;
+        move.position.y -= 1;
       });
     }
   }
@@ -311,7 +342,7 @@ function animate() {
           },
         })
       ) {
-        console.log("collision");
+     
         if (!tackleHitPlaying) {
           tackleHitPlaying = true;
           const audio = new Audio("/Audio/tackleHit.wav");
@@ -327,7 +358,7 @@ function animate() {
     }
     if (move) { 
       movableEntities.forEach((move) => {
-        move.position.x += 2;
+        move.position.x += 1;
       });
     }
   }
@@ -348,7 +379,7 @@ function animate() {
           },
         })
       ) {
-        console.log("collision");
+      
         if (!tackleHitPlaying) {
           tackleHitPlaying = true;
           const audio = new Audio("/Audio/tackleHit.wav");
@@ -364,7 +395,7 @@ function animate() {
     }
     if (move) { 
       movableEntities.forEach((move) => {
-        move.position.x -= 2;
+        move.position.x -= 1;
       });
     }
   }
