@@ -4,12 +4,19 @@ canvas.width = 1014;
 canvas.height = 566;
 const c = canvas.getContext("2d");
 
+console.log(gsap)
+
+
 
 // Audio needs user interaction first due to browser autoplay policies
 window.audioPlaying = false;
 const backgroundMusic = new Audio('/Audio/map.wav');
+const battleMusic = new Audio('/Audio/BattleMusic.mp3');
 backgroundMusic.loop = true;
-backgroundMusic.volume =0.7;
+backgroundMusic.volume = 0.7;
+
+battleMusic.loop = true;
+battleMusic.volume = 0.7;
 
 // Wait for user interaction before playing audio
 window.addEventListener('click', () => {
@@ -62,7 +69,7 @@ class Boundary {
   }
 
   draw() {
-    c.fillStyle = "rgb(255,0,0,0.2)";
+    c.fillStyle = "rgb(255,0,0,0)";
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
@@ -122,11 +129,13 @@ let gameFrame = 0;
 
 
 class Sprite {
-  constructor({ position, velocity, image, frames = { max: 1 } }) {
+  constructor({ position, velocity, image, frames = { max: 1 } , width ,height }) {
     this.position = position;
     this.image = image;
     this.frames = frames; // Fixed property name
-    this.currentFrame = 0; // Added to track current animation frame
+    this.currentFrame = 0;
+    this.width = width,
+    this.height =  height // Added to track current animation frame
     this.image.onload = () => {
       this.width = this.image.width / this.frames.max;
       this.height = this.image.height;
@@ -149,6 +158,9 @@ class Sprite {
     );
   }
 }
+
+
+
 
 
 
@@ -204,10 +216,16 @@ function collision101({ rect1, rect2 }) {
 // Create a separate flag for tackle hit sound
 let tackleHitPlaying = false;
 
+const battle =
+{
+  initiated : false 
+}
+
 function animate() {
   c.clearRect(0, 0, canvas.width, canvas.height);  
 
-  window.requestAnimationFrame(animate);
+  const animationId = window.requestAnimationFrame(animate);
+  console.log(animationId)
   background.draw();
   boundary.forEach((bound) => {
     bound.draw();
@@ -228,19 +246,59 @@ function animate() {
   
   playerSprite.draw();
   let move = true;
+  playerSprite.moving = false;
   // responsibale for Battle collison
+if (battle.initiated) return
+
  if(keys.w.pressed || keys.s.pressed || keys.a.pressed || keys.d.pressed)
  {
   
   for (let i = 0; i < battleZone.length; i++) {
     const battlePoints = battleZone[i];
+    const overlappingArea =  (Math.min(
+      playerSprite.position.x + playerSprite.width,
+      battlePoints.position.x + battlePoints.width
+    ) -
+      Math.max(playerSprite.position.x, battlePoints.position.x)) *
+    (Math.min(
+      playerSprite.position.y + playerSprite.height,
+      battlePoints.position.y + battlePoints.height
+    ) -
+      Math.max(playerSprite.position.y, battlePoints.position.y))
+     
+    
     if (
       collision101({
         rect1: playerSprite,
         rect2:battlePoints
-      })
+      }) &&
+        overlappingArea > (playerSprite.width * playerSprite.height) / 2
+        && Math.random() < 0.01
+
+
     ) {
-    console.log("battle zone collision")
+    console.log("Battle Activated")
+    backgroundMusic.pause();
+    battleMusic.play();
+    window.cancelAnimationFrame(animationId)
+    battle.initiated = true
+    gsap.to("#overlay" , {
+      opacity: 1,
+      repeat:5,
+      yoyo:true,
+      duration:0.3,
+      onComplete(){
+        animationBattle();
+           gsap.to("#overlay",{
+            opacity:0,
+            duration:0.4,
+           })
+
+      }
+    })
+
+    
+
       break;
     }
   }
@@ -401,6 +459,62 @@ function animate() {
   }
 }
 animate();
+// animationBattle();
+
+const BattlegroundImage = new Image();
+BattlegroundImage.src = "/images/battleBackground.png"; 
+
+Pokemon = new Image();
+Pokemon.src = "/images/Foragerra.png";
+
+battlemon = new Image();
+battlemon.src = "/images/Flambull.png";
+
+const Battleground = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  image: BattlegroundImage,
+})
+
+const PokemonDraw = new Sprite({
+  position: {
+    x: 230,
+    y: 200,
+  },
+  image: Pokemon,
+  frames: {
+    max: 1,
+  },  
+  width:210,
+  height:300,
+  
+})
+
+const battlemonDraw = new Sprite({
+  position: {
+    x: 750,
+    y: 60,
+  },
+  image: battlemon,
+  frames: {
+    max: 1,
+  },  
+
+  
+})
+function animationBattle()
+{
+  window.requestAnimationFrame(animationBattle)
+  console.log("animationbattle");
+  Battleground.draw();
+  PokemonDraw.draw();
+  battlemonDraw.draw();
+  
+}
+
+// animationBattle();
 
 var main = document.querySelector("#main");
 
