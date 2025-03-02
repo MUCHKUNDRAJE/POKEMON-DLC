@@ -1,25 +1,25 @@
-const express =require("express");
+const express = require("express");
 const path = require("path");
-const cookie = require("cookie-parser");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser"); // Fixed import
 
+const app = express();
 
-const app  = express();
-
+// Set EJS as the templating engine
 app.set("view engine", "ejs");
+
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cookie());
+app.use(cookieParser()); // Corrected usage
 
-
-app.get("/",(req,res,next)=>{
- res.render("index")
+// Routes
+app.get("/", (req, res) => {
+    res.render("index");
 });
 
-
-
-
-
-app.listen(3000);
+// Start Server
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
