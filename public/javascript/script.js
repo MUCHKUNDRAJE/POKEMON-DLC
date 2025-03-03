@@ -277,9 +277,9 @@ if (battle.initiated) return
 
 
     ) {
+      backgroundMusic.pause();
+      battleMusic.play();
     console.log("Battle Activated")
-    backgroundMusic.pause();
-    battleMusic.play();
     window.cancelAnimationFrame(animationId)
     battle.initiated = true
     gsap.to("#overlay" , {
@@ -492,25 +492,28 @@ const PokemonDraw = new Sprite({
   
 })
 
+let animationbattlePokemon = 0 ;
 const battlemonDraw = new Sprite({
   position: {
-    x: 750,
+    x: animationbattlePokemon,
     y: 60,
   },
   image: battlemon,
   frames: {
     max: 1,
   },  
-
-  
 })
 function animationBattle()
 {
   window.requestAnimationFrame(animationBattle)
   console.log("animationbattle");
   Battleground.draw();
-  PokemonDraw.draw();
+ 
+  battlemonDraw.position.x = animationbattlePokemon;
   battlemonDraw.draw();
+
+  if (animationbattlePokemon < 720)  animationbattlePokemon += 3;
+  if (animationbattlePokemon == 720 )   PokemonDraw.draw() ;
   
 }
 
