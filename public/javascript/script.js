@@ -1,4 +1,6 @@
 const canvas = document.querySelector("canvas");
+const tackleAudiovolume = 0.2
+
 
 canvas.width = 1014;
 canvas.height = 566;
@@ -327,8 +329,8 @@ if (battle.initiated) return
       
         if (!tackleHitPlaying) {
           tackleHitPlaying = true;
-          const audio = new Audio("/Audio/tackleHit.wav");
-          audio.volume =0.2;
+          const audio = new Audio("/Audio/wall_collision.wav");
+          audio.volume =tackleAudiovolume;
           audio.addEventListener('ended', () => {
             tackleHitPlaying = false;
           });
@@ -367,7 +369,8 @@ if (battle.initiated) return
       
         if (!tackleHitPlaying) {
           tackleHitPlaying = true;
-          const audio = new Audio("/Audio/tackleHit.wav");
+          const audio = new Audio("/Audio/wall_collision.wav");
+          audio.volume =tackleAudiovolume
           audio.addEventListener('ended', () => {
             tackleHitPlaying = false;
           });
@@ -403,8 +406,8 @@ if (battle.initiated) return
      
         if (!tackleHitPlaying) {
           tackleHitPlaying = true;
-          const audio = new Audio("/Audio/tackleHit.wav");
-          audio.volume =0.2;
+          const audio = new Audio("/Audio/wall_collision.wav");
+          audio.volume =tackleAudiovolume
           audio.addEventListener('ended', () => {
             tackleHitPlaying = false;
           });
@@ -440,8 +443,8 @@ if (battle.initiated) return
       
         if (!tackleHitPlaying) {
           tackleHitPlaying = true;
-          const audio = new Audio("/Audio/tackleHit.wav");
-          audio.volume =0.2;
+          const audio = new Audio("/Audio/wall_collision.wav");
+          audio.volume =tackleAudiovolume
           audio.addEventListener('ended', () => {
             tackleHitPlaying = false;
           });
