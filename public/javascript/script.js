@@ -1,5 +1,5 @@
 const canvas = document.querySelector("canvas");
-const tackleAudiovolume = 0.2
+const tackleAudiovolume = 0.5
 
 
 canvas.width = 1014;
@@ -115,14 +115,6 @@ battlefield_map.forEach((row, i) => {
 });
 
 console.log(battleZone)
-
-
-
-
-
-
-
-
 
 
 let frameX = 0;
@@ -295,6 +287,14 @@ if (battle.initiated) return
             opacity:0,
             duration:0.4,
            })
+           gsap.to(["#battlecontrol", "#emenyBattleInterface", "#PlayerBattleInterface"], { 
+            display: "block", 
+          });
+
+           gsap.to(["#battlecontrol", "#emenyBattleInterface", "#PlayerBattleInterface"], { 
+            opacity: 1, 
+            duration: 4 
+          });
 
       }
     })
@@ -483,15 +483,15 @@ const Battleground = new Sprite({
 
 const PokemonDraw = new Sprite({
   position: {
-    x: 230,
-    y: 200,
+    x: 280,
+    y: 260,
   },
   image: Pokemon,
   frames: {
     max: 1,
   },  
   width:210,
-  height:300,
+  height:320,
   
 })
 
@@ -509,14 +509,16 @@ const battlemonDraw = new Sprite({
 function animationBattle()
 {
   window.requestAnimationFrame(animationBattle)
+
   console.log("animationbattle");
   Battleground.draw();
  
   battlemonDraw.position.x = animationbattlePokemon;
   battlemonDraw.draw();
 
-  if (animationbattlePokemon < 720)  animationbattlePokemon += 3;
-  if (animationbattlePokemon == 720 )   PokemonDraw.draw() ;
+
+  if (animationbattlePokemon < 750)  animationbattlePokemon += 3;
+  if (animationbattlePokemon == 750 )PokemonDraw.draw() ;
   
 }
 

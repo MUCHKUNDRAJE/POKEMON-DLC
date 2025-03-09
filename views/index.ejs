@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Press+Start+2P&display=swap');
+        </style>
     <title>POKEMON</title>
 </head>
 <body>
@@ -14,6 +17,42 @@
     
     <div id="overlay" style="width: 1014px; height: 566px; background:black; position:absolute ;" class="rounded-lg opacity-0 pointer-none"></div>
    <canvas style="border-radius: 10px;"></canvas>
+   <div id="battlecontrol"  class="opacity-0 hidden absolute bottom-16 rounded-b-xl w-[1014px] h-[150px] bg-white z-10 border-t-[4px] flex overflow-hidden" >
+     
+      <div class=" w-[70%] h-full flex flex-wrap border-r-[2px] border-dashed  ">
+        <button class="h-18 w-1/2  hover:bg-slate-200 cursor-pointer border-r-[2px] border-dashed text-[#A4785A] ">Tackel</button>
+        <button class="h-18 w-1/2 hover:bg-slate-200 cursor-pointer border-b-[2px] border-dashed text-red-500 border-black ">Fireball</button> 
+         <button class="h-18 w-1/2 hover:bg-slate-200 cursor-pointer  border-r-[2px] border-t-[2px] border-dashed text-green-500 border-black">waind whipe</button>
+         <button class="h-18 w-1/2 hover:bg-slate-200 cursor-pointer   border-dashed  text-[#A4785A]">Swift</button>
+      </div>
+      <div class="flex items-center justify-center w-[30%] h-full ">
+            <h1> Attack Type</h1>
+      </div>
+      
+   </div>
+
+<div id="emenyBattleInterface"  style="padding: 15px;  padding-left:18px;" class="h-20 opacity-0  w-80 hidden bg-white absolute top-32 left-[22rem] border-2 rounded-lg px-10"> 
+      
+    <div>
+        <h1>Flambull</h1> 
+        <h3 class="text-xs mt-3">Lvl 69</h3>
+
+    </div>
+      <div style="margin-top: 5px;" class="w-68 h-[6px] rounded-xl  bg-zinc-400 overflow-hidden">
+        <div  class="w-[10%] h-full bg-green-600 "></div>
+      </div>   
+</div>
+   <div id="PlayerBattleInterface"  style="padding: 15px; padding-left:18px;" class="h-20  w-80 hidden opacity-0  bg-white absolute bottom-62 right-96 border-2 rounded-lg ">
+       
+    <div>
+        <h1>Foragerra</h1> 
+        <h3 class="text-xs mt-2">Lvl 69</h3>
+
+    </div>
+      <div style="margin-top: 5px;" class="w-68 h-[6px] rounded-xl overflow-hidden  bg-zinc-400">
+        <div  class="w-[30%] h-full bg-green-600 "></div>
+      </div>   
+   </div>
 
 </div>
 
