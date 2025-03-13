@@ -17,21 +17,32 @@
     
     <div id="overlay" style="width: 1014px; height: 566px; background:black; position:absolute ;" class="rounded-lg opacity-0 pointer-none"></div>
    <canvas style="border-radius: 10px;"></canvas>
-   <div id="battlecontrol"  class="opacity-0 hidden absolute bottom-16 rounded-b-xl w-[1014px] h-[150px] bg-white z-10 border-t-[4px] flex overflow-hidden" >
-     
-      <div class=" w-[70%] h-full flex flex-wrap border-r-[2px] border-dashed  ">
-        <button class="h-18 w-1/2  hover:bg-slate-200 cursor-pointer border-r-[2px] border-dashed text-[#A4785A] ">Tackel</button>
-        <button class="h-18 w-1/2 hover:bg-slate-200 cursor-pointer border-b-[2px] border-dashed text-red-500 border-black ">Fireball</button> 
-         <button class="h-18 w-1/2 hover:bg-slate-200 cursor-pointer  border-r-[2px] border-t-[2px] border-dashed text-green-500 border-black">waind whipe</button>
-         <button class="h-18 w-1/2 hover:bg-slate-200 cursor-pointer   border-dashed  text-[#A4785A]">Swift</button>
+   <div id="battlecontrol" style="padding: 5px 5px; "  class="opacity-0 hidden absolute bottom-16  bg-[#294E68]  rounded-b-xl w-[1014px] h-[150px] z-10 border-t-[4px] flex overflow-hidden  " >
+  <div class="flex w-full h-full gap-1 bg-white rounded-xl  ">
+
+      <div style="padding:10px"  class="w-[65%] border-2 rounded-xl ">
+        <h1 id="text-box" class="flex " style="margin-top: 10px; "></h1>
       </div>
-      <div class="flex items-center justify-center w-[30%] h-full ">
-            <h1> Attack Type</h1>
+      <div style="padding: 10px 30px;" class=" w-[65%] hidden h-full flex flex-wrap gap-1 border-2 rounded-xl overflow-hidden  ">
+        <button class="h-1/2 w-[45%]  hover:bg-slate-200 hover:border-b-4 hover:border-r-4 rounded-xl  transition-all duration:100 ease    cursor-pointer  text-[#A4785A] ">Tackel</button>
+        <button class="h-1/2 w-[45%] hover:bg-slate-200 hover:border-b-4 hover:border-r-4 rounded-xl  transition-all duration:100 ease    cursor-pointer text-red-500 border-black ">Fireball</button> 
+         <button class="h-1/2 w-[45%] hover:bg-slate-200 hover:border-b-4 hover:border-r-4 rounded-xl  transition-all duration:100 ease    cursor-pointer text-green-500 border-black">waind whipe</button>
+         <button class="h-1/2 w-[45%] hover:bg-slate-200 hover:border-b-4 hover:border-r-4 rounded-xl  transition-all duration:100 ease    cursor-pointer   text-[#A4785A]">Swift</button>
       </div>
-      
+  
+       <div class="flex  w-[35%] h-full   border-2 flex-wrap  rounded-xl gap-1 ">
+         <button id="Fight-button" class="hover:bg-blue-100 w-[49%] rounded-xl cursor-pointer hover:border-b-4 hover:border-r-4 transition-all duration:100 ease   ">Fight</button>
+         <button class="hover:bg-blue-100 w-[49%] rounded-xl cursor-pointer hover:border-b-4 hover:border-r-4 transition-all duration:100 ease  ">Bag</button>
+          <button class=" hover:bg-blue-100 w-[49%] rounded-xl cursor-pointer hover:border-b-4 hover:border-r-4 transition-all duration:100 ease  ">Pokemon</button>
+          <button class="hover:bg-blue-100 w-[49%] rounded-xl cursor-pointer hover:border-b-4 hover:border-r-4 transition-all duration:100 ease  ">Run</button>
+       </div>
+    </div>
+
+
+        
    </div>
 
-<div id="emenyBattleInterface"  style="padding: 15px;  padding-left:18px;" class="h-20 opacity-0  w-80 hidden bg-white absolute top-32 left-[22rem] border-2 rounded-lg px-10"> 
+<div id="emenyBattleInterface"  style="padding: 15px;  padding-left:18px;" class="h-20 opacity-0  w-80 hidden bg-white absolute top-32 left-[22rem] border-2 rounded-lg px-10 border-b-6 border-r-6"> 
       
     <div>
         <h1>Flambull</h1> 
@@ -42,7 +53,7 @@
         <div  class="w-[10%] h-full bg-green-600 "></div>
       </div>   
 </div>
-   <div id="PlayerBattleInterface"  style="padding: 15px; padding-left:18px;" class="h-20  w-80 hidden opacity-0  bg-white absolute bottom-62 right-96 border-2 rounded-lg ">
+   <div id="PlayerBattleInterface"  style="padding: 15px; padding-left:18px;" class="h-20  w-80 hidden opacity-0  bg-white absolute bottom-62 right-96 border-2 rounded-lg border-b-6 border-l-6">
        
     <div>
         <h1>Foragerra</h1> 

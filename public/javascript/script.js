@@ -6,7 +6,6 @@ canvas.width = 1014;
 canvas.height = 566;
 const c = canvas.getContext("2d");
 
-console.log(gsap)
 
 
 
@@ -114,7 +113,7 @@ battlefield_map.forEach((row, i) => {
   });
 });
 
-console.log(battleZone)
+
 
 
 let frameX = 0;
@@ -153,7 +152,11 @@ class Sprite {
   }
 }
 
+var fight_button = document.querySelector("#Fight-button")
+fight_button.addEventListener("click",()=>{
 
+
+})
 
 
 
@@ -219,7 +222,7 @@ function animate() {
   c.clearRect(0, 0, canvas.width, canvas.height);  
 
   const animationId = window.requestAnimationFrame(animate);
-  console.log(animationId)
+  
   background.draw();
   boundary.forEach((bound) => {
     bound.draw();
@@ -273,7 +276,7 @@ if (battle.initiated) return
     ) {
       backgroundMusic.pause();
       battleMusic.play();
-    console.log("Battle Activated")
+  
     window.cancelAnimationFrame(animationId)
     battle.initiated = true
     gsap.to("#overlay" , {
@@ -293,7 +296,7 @@ if (battle.initiated) return
 
            gsap.to(["#battlecontrol", "#emenyBattleInterface", "#PlayerBattleInterface"], { 
             opacity: 1, 
-            duration: 4 
+            duration: 0.2,
           });
 
       }
@@ -306,7 +309,14 @@ if (battle.initiated) return
   }
  }
 
+//  gsap.to(["#battlecontrol", "#emenyBattleInterface", "#PlayerBattleInterface"], { 
+//   display: "block", 
+// });
 
+//  gsap.to(["#battlecontrol", "#emenyBattleInterface", "#PlayerBattleInterface"], { 
+//   opacity: 1, 
+//   duration: 0.2,
+// });
 
   if (keys.w.pressed && lastkey === "w") {
    
@@ -510,7 +520,7 @@ function animationBattle()
 {
   window.requestAnimationFrame(animationBattle)
 
-  console.log("animationbattle");
+ 
   Battleground.draw();
  
   battlemonDraw.position.x = animationbattlePokemon;
@@ -519,8 +529,48 @@ function animationBattle()
 
   if (animationbattlePokemon < 750)  animationbattlePokemon += 3;
   if (animationbattlePokemon == 750 )PokemonDraw.draw() ;
-  
+ 
 }
+
+const battle_dailogs = [
+  "Flambull spotted at the bush!",
+  "Wanna fight me?",
+  "Let's fight!",
+  "Go, Foragerra!",
+  "Show them who’s the boss!",
+  "What Will You do?"
+];
+
+document.addEventListener("DOMContentLoaded", () => {
+  const textbox = document.querySelector("#text-box");
+  let count_battle_sequences = 0;
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && count_battle_sequences < battle_dailogs.length) {
+      let characters = battle_dailogs[count_battle_sequences].match(/[\S\s]/g); 
+      // Keeps spaces, letters, and punctuation as separate elements
+
+      textbox.innerHTML = ""; // Clear previous text
+
+      characters.forEach((char) => {
+        let span = document.createElement("span");
+        span.innerHTML = char === " " ? "&nbsp;" : char; // Render spaces properly
+        span.classList.add("text");
+        textbox.appendChild(span);
+      });
+
+      gsap.from(".text", {
+        // y: 10,
+        opacity: 0,
+        duration: 0.2,
+        ease: "power3",
+        stagger: 0.05, // Fast animation per character
+      });
+
+      count_battle_sequences++;
+    }
+  });
+});
 
 // animationBattle();
 
